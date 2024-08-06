@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('progres_materi_users', function (Blueprint $table) {
+        Schema::create('progress_materi_users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('materi_id')->constrained(table: 'materis', indexName: 'progress_materi_users_materi_id')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('user_id')->constrained(table: 'users', indexName: 'progress_materi_users_user_id')->onUpdate('cascade')->onDelete('cascade');
             $table->enum('status', ['finish', 'pending'])->default('pending');
             $table->integer('page_number_readed');
             $table->timestamps();
-
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('progres_materi_users');
+        Schema::dropIfExists('progress_materi_users');
     }
 };
