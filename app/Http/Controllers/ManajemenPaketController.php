@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Paket;
 use Illuminate\Http\Request;
 
 class ManajemenPaketController extends Controller
 {
     public function index()
     {
-        return view('admin.paket.index');
+        $pakets = Paket::all();
+        // dd($pakets->kategori_paket);
+        // dd($pakets->category->name);
+        return view('admin.paket.index', compact('pakets'));
     }
 
     /**

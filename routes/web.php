@@ -13,7 +13,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::resource('admin/soal', ManajemenSoalController::class);
-Route::resource('admin/paket', ManajemenPaketController::class);
+Route::resource('admin/paket', ManajemenPaketController::class)
+    ->names([
+        'index' => 'paket.index',
+        'create' => 'paket.create',
+        'store' => 'paket.store',
+        'show' => 'paket.show',
+        'edit' => 'paket.edit',
+        'update' => 'paket.update',
+        'destroy' => 'paket.destroy',
+    ]);
 Route::resource('admin/materi', ManajemenMateriController::class);
 Route::resource('admin/transaksi', ManajemenTransaksiController::class);
 Route::resource('admin/konfigurasi', ManajemenKonfigurasiController::class);
