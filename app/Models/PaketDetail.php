@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class PaketDetail extends Model
 {
     use HasFactory;
+
+    protected $guarded = ['id'];
+
+    public function paket()
+    {
+        return $this->belongsTo(Paket::class);
+    }
 }
