@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             [
                 KategoriPaketSeeder::class,
                 PaketSeeder::class,
+                
                 // PaketDetailSeeder::class,
                 MateriSeeder::class,
                 SoalSeeder::class
