@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('paket_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('paket_id')->constrained(table: 'pakets', indexName: 'paket_details_paket_id')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('paketable_id')->constrained(table: 'paket_users', indexName: 'paket_details_paket_user_id')->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('paketable_id');
             $table->enum('status', ['soal', 'materi']);
             $table->timestamps();
         });
