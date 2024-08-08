@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Paket extends Model
 {
@@ -30,4 +31,11 @@ class Paket extends Model
     {
         return $this->belongsTo(KategoriPaket::class, 'kategori_id', 'id');
     }
+
+    public function paket_detail()
+    {
+        return $this->hasOne(PaketDetail::class);
+    }
+
+
 }

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('user_feedback', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained(table: 'users', indexName: 'user_feedback_user_id')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignUuid('user_id')->constrained(table: 'users', indexName: 'user_feedback_user_id')->onUpdate('cascade')->onDelete('cascade');
             $table->text('feedback');
             $table->enum('status', ['hide', 'show'])->default('hide');
             $table->timestamps();

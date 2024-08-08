@@ -18,6 +18,8 @@ class KategoriPaket extends Model
 
     public function pakets(): HasMany
     {
+
+
         return $this->hasMany(Paket::class);
     }
 }

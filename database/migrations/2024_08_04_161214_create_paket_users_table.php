@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('paket_users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained(table: 'users', indexName: 'paket_users_users_id')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignUuid('user_id')->constrained(table: 'users', indexName: 'paket_users_users_id')->onUpdate('cascade')->onDelete('cascade');
             $table->string('paket_name');
             $table->dateTime('start_time');
             $table->dateTime('end_time');

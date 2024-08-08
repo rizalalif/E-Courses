@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('paket_details', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->foreignUuid('paket_id')->constrained(table: 'pakets', indexName: 'paket_details_paket_id')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('paketable_id')->constrained(table: 'paket_users', indexName: 'paket_details_paket_user_id')->onUpdate('cascade')->onDelete('cascade');
-            $table->enum('status', ['soal', 'materi']);
+            $table->string('paketable_type');
+            $table->string('paketable_id');
             $table->timestamps();
         });
     }

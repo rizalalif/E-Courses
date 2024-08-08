@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Materi;
 use Illuminate\Http\Request;
 
 class DetailMateriController extends Controller
@@ -35,7 +36,8 @@ class DetailMateriController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $materi = Materi::findOrFail($id);
+        dd($materi);
     }
 
     /**
