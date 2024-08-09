@@ -10,7 +10,6 @@ class KategoriPaketFactory extends Factory
         static $index = 1;
         return [
             'name' => 'Kategori ' . $index++,
-            'description' => 'Deskripsi ' . $index
-        ];
+            'description' => 'Deskripsi ' . $index       ];
     }
 }
