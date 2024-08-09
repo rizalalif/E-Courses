@@ -25,8 +25,7 @@ class KategoriPaketFactory extends Factory
 
         ];
         return [
-            "name" => collect($categories)->random(),
-            "description" => fake()->sentence(20),
-        ];
+            'name' => 'Kategori ' . $index++,
+            'description' => 'Deskripsi ' . $index       ];
     }
 }
