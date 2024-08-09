@@ -18,4 +18,10 @@ class Soal extends Model
     {
         return $this->morphMany(PaketDetail::class, 'paketable');
     }
+
+
+    public function detailSoals()
+    {
+        return $this->hasMany(SoalDetail::class);
+    }
 }

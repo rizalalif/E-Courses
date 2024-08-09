@@ -2,17 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Soal;
+use App\Models\SoalDetail;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class SoalSeeder extends Seeder
+class SoalDetailSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Soal::factory(5)->create();
+        SoalDetail::factory(50)->create();
     }
 }

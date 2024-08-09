@@ -2,17 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Soal;
+use App\Models\MateriDetail;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class SoalSeeder extends Seeder
+class MateriDetailSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Soal::factory(5)->create();
+        MateriDetail::factory(10)->create();
     }
 }
