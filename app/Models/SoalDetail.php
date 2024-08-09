@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class SoalDetail extends Model
 {
     use HasFactory;
+
+    protected $guarded = ['id'];
+
+    public function soal()
+    {
+        return $this->belongsTo(Soal::class);
+    }
 }

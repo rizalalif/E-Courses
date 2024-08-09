@@ -4,9 +4,11 @@ namespace Database\Seeders;
 
 use App\Models\KategoriPaket;
 use App\Models\Materi;
+use App\Models\MateriDetail;
 use App\Models\Paket;
 use App\Models\PaketDetail;
 use App\Models\Soal;
+use App\Models\SoalDetail;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -26,6 +28,8 @@ class DatabaseSeeder extends Seeder
         PaketDetail::truncate();
         Materi::truncate();
         Soal::truncate();
+        SoalDetail::truncate();
+        MateriDetail::truncate();
         Schema::enableForeignKeyConstraints();
 
         $this->call(
@@ -34,7 +38,11 @@ class DatabaseSeeder extends Seeder
                 PaketSeeder::class,
                 PaketDetailSeeder::class,
                 MateriSeeder::class,
-                SoalSeeder::class
+                SoalSeeder::class,
+                SoalDetailSeeder::class,
+                MateriDetailSeeder::class,
+            
+
             ]
         );
     }
