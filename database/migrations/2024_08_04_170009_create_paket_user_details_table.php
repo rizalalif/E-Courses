@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('paket_user_details', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('paketable_id')->constrained(table: 'paket_users', indexName: 'paket_user_details_paket_users_id')->onUpdate('cascade')->onDelete('cascade');
+            $table->uuid('id')->primary();
+            $table->string('paketable_id');
             $table->enum('paketable_type', ['soal', 'materi']);
             $table->timestamps();
         });

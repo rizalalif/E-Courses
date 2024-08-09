@@ -2,30 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Materi extends Model
 {
-    use HasFactory;
-    use HasUlids;
+    use HasFactory, HasUuids;
 
-    protected $fillable=[
-        'name',
-        'status',
-        'description'
-    ];
+    protected $guarded = ['id'];
 
-    public function paket_detail():HasOne
+    public function paket(): MorphMany
     {
-        return $this->hasOne(MateriDetail::class);
+        return $this->morphMany(PaketDetail::class, 'paketable');
     }
-
-    // public function paket():MorphOne
-    // {
-    //     return $this->morphOne(Paket::class,'paketable');
-    // }
 }

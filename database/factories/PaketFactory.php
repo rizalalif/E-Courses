@@ -26,7 +26,7 @@ class PaketFactory extends Factory
             "status" => 'active',
             "day_active_paket" => fake()->numberBetween(1, 5),
             "paket_type" => 'free',
-            "price" => fake()->randomFloat(3),
+            "price" => 100.00,
             "discount" => fake()->randomFloat(2),
         ];
     }

@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('soal_details', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('soal_id')->constrained(table: 'soals', indexName: 'soal_details_soal_id')->onUpdate('cascade')->onDelete('cascade');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('soal_id')->constrained(table: 'soals', indexName: 'soal_details_soal_id')->onUpdate('cascade')->onDelete('cascade');
             $table->text('soal');
             $table->text('jawaban_a');
             $table->text('jawaban_b');
