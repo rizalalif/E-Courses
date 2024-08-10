@@ -13,6 +13,6 @@ class MateriDetailSeeder extends Seeder
      */
     public function run(): void
     {
-        MateriDetail::factory(10)->create();
+        MateriDetail::factory(50)->create();
     }
 }

@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('materi_details', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->foreignUuid('materi_id')->constrained(table: 'materis', indexName: 'materi_details_materi_id')->onUpdate('cascade')->onDelete('cascade');
             $table->text('materi');
             $table->integer('page_number');
-            $table->enum('status',['finish','draft'])->default('draft');
+            $table->enum('status', ['finish', 'draft'])->default('draft');
             $table->timestamps();
         });
     }

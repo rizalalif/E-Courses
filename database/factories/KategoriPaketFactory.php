@@ -16,6 +16,7 @@ class KategoriPaketFactory extends Factory
      */
     public function definition(): array
     {
+        static $index = 1;
         $categories = [
             '1' => 'kategori 1',
             '2' => 'kategori 2',
