@@ -34,7 +34,7 @@ class Paket extends Model
 
     public function paket_detail()
     {
-        return $this->hasOne(PaketDetail::class);
+        return $this->hasMany(PaketDetail::class);
     }
 
 

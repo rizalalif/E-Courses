@@ -12,6 +12,8 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\KategoriPaket;
 
+use function PHPSTORM_META\map;
+
 class ManajemenPaketController extends Controller
 {
     public function index()
@@ -40,60 +42,70 @@ class ManajemenPaketController extends Controller
      */
     public function store(Request $request)
     {
+        try {
+            //code...
+            $request->validate([
+                "name" => "required",
+                "description" => "required",
+                "diskon" => "required",
+                "price" => "required",
+                "start" => "required",
+                "end" => "required",
+                "materi" => "required",
+                "soal" => "required",
+                "thumbnail" => "required|image|mimes:jpeg,png,jpg|max:2048"
+            ]);
+            $request->file();
 
-        $request->validate([
-            "name" => "required",
-            "description" => "required",
-            "diskon" => "required",
-            "price" => "required",
-            "start" => "required",
-            "end" => "required",
-            "materi" => "required",
-            "soal" => "required",
-            "thumbnail" => "required|image|mimes:jpeg,png,jpg|max:2048"
-        ]);
-        $request->file();
+            $image = $request->file('thumbnail');
 
-        $image = $request->file('thumbnail');
+            // dd($image->);
+            $image->storeAs('public/assets/img/', $image->getClientOriginalName());
+            $start = Carbon::parse($request->start);
+            $end = Carbon::parse($request->end);
 
-        // dd($image->);
-        $image->storeAs('public/assets/img/', $image->getClientOriginalName());
-        $start = Carbon::parse($request->start);
-        $end = Carbon::parse($request->end);
+            $diff = $start->diffInDays($end);
 
-        $diff = $start->diffInDays($end);
+            $paket =  Paket::create([
+                "name" => $request->name,
+                "kategori_id" => $request->kategori,
+                "description" => $request->description,
+                "price" => (float) $request->price,
+                "day_active_paket" => (int) $diff,
+                "discount" => (float) $request->diskon,
+                "thumbnail" => $image->getClientOriginalName()
+            ]);
 
-        $paket =  Paket::create([
-            "name" => $request->name,
-            "kategori_id" => $request->kategori,
-            "description" => $request->description,
-            "price" => (float) $request->price,
-            "day_active_paket" => (int) $diff,
-            "discount" => (float) $request->diskon,
-            "thumbnail" => $image->getClientOriginalName()
-        ]);
-        // $paket_id = Paket::latest('name');
-        $paket_detail = [
-            [
-                "id" => Str::uuid()->toString(),
-                "paket_id" => $paket->id,
-                "paketable_id" => $request->materi,
-                "paketable_type" => Materi::class,
-                "created_at" => Carbon::now(),
-                "updated_at" => Carbon::now(),
-            ],
-            [
-                "id" => Str::uuid()->toString(),
-                "paket_id" => $paket->id,
-                "paketable_id" => $request->soal,
-                "paketable_type" => Soal::class,
-                "created_at" => Carbon::now(),
-                "updated_at" => Carbon::now(),
-            ]
-        ];
-        $detail = PaketDetail::insert($paket_detail);
-        // dd($detail);
-        // return redirect()->route('paket.index');
+            $materis = $request->input('materi');
+            $soals = $request->input('soal');
+            $paketDetail = [];
+            foreach ($materis as $materi) {
+                array_push($paketDetail, [
+                    "id" => Str::uuid()->toString(),
+                    "paket_id" => $paket->id,
+                    "paketable_id" => $materi,
+                    "paketable_type" => Materi::class,
+                    "created_at" => Carbon::now(),
+                    "updated_at" => Carbon::now(),
+                ]);
+            }
+            foreach ($soals as $soal) {
+                array_push($paketDetail, [
+                    "id" => Str::uuid()->toString(),
+                    "paket_id" => $paket->id,
+                    "paketable_id" => $soal,
+                    "paketable_type" => Soal::class,
+                    "created_at" => Carbon::now(),
+                    "updated_at" => Carbon::now(),
+                ]);
+            }
+
+            PaketDetail::insert($paketDetail);
+            return redirect()->route('paket.index')->with('success', 'Berhasil menambahkan paket!');
+        } catch (\Throwable $th) {
+            return redirect()->route('paket.index')->with('failed', $th->getMessage());
+        }
+
 
         //
     }
@@ -108,16 +120,16 @@ class ManajemenPaketController extends Controller
 
         // $detail = $datapaket;
 
-        $bahan = PaketDetail::where("paket_id", '=', $paket->id)->get();
-        // dd($id);
+        $materi = PaketDetail::where("paket_id", $paket->id)->where('paketable_type', Materi::class)->get();
+        $soal = PaketDetail::where("paket_id", $paket->id)->where('paketable_type', Soal::class)->get();
+        // $materi = Materi::with('paket')->where('')->get();
         // $detail = $paket->paket_detail;
 
 
 
 
-
         // dd($bahan[1]->paketable);
-        return view('admin.paket.detail-paket', ['paket' => $paket, 'bahan' => $bahan]);
+        return view('admin.paket.detail-paket', ['paket' => $paket, 'materi' => $materi, 'soal' => $soal]);
     }
 
     /**
