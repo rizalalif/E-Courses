@@ -11,8 +11,11 @@ use App\Models\PaketDetail;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\KategoriPaket;
+use Exception;
+use Illuminate\Support\Facades\Storage;
 
 use function PHPSTORM_META\map;
+use function PHPUnit\Framework\throwException;
 
 class ManajemenPaketController extends Controller
 {
@@ -55,12 +58,12 @@ class ManajemenPaketController extends Controller
                 "soal" => "required",
                 "thumbnail" => "required|image|mimes:jpeg,png,jpg|max:2048"
             ]);
-            $request->file();
 
             $image = $request->file('thumbnail');
 
             // dd($image->);
-            $image->storeAs('public/assets/img/', $image->getClientOriginalName());
+            // $image->storeAs('assets/img/', $image->getClientOriginalName());
+            $image->move(public_path('assets/img'), $image->getClientOriginalName());
             $start = Carbon::parse($request->start);
             $end = Carbon::parse($request->end);
 
@@ -113,31 +116,40 @@ class ManajemenPaketController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Paket $paket)
+    public function show($id)
     {
+        // $id = $paket->id;
 
-        // $datapaket = $paket;
+        // $materi = PaketDetail::where("paket_id", $paket->id)->where('paketable_type', Materi::class)->get();
+        // $soal = PaketDetail::where("paket_id", $paket->id)->where('paketable_type', Soal::class)->get();
 
-        // $detail = $datapaket;
+        $paket = Paket::with(['paket_detail' => function ($query) use ($id) {
+            $query->where('paket_id', $id);
+        }, 'paket_detail.paketable'])->findOrFail($id);
 
-        $materi = PaketDetail::where("paket_id", $paket->id)->where('paketable_type', Materi::class)->get();
-        $soal = PaketDetail::where("paket_id", $paket->id)->where('paketable_type', Soal::class)->get();
-        // $materi = Materi::with('paket')->where('')->get();
-        // $detail = $paket->paket_detail;
-
-
-
-
-        // dd($bahan[1]->paketable);
-        return view('admin.paket.detail-paket', ['paket' => $paket, 'materi' => $materi, 'soal' => $soal]);
+        return view('admin.paket.detail-paket', ['paket' => $paket]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Paket $paket)
     {
-        //
+        $id = $paket->id;
+        // dd($paket->category);
+        $materi = Materi::all();
+        $soal = Soal::all();
+        $categories = KategoriPaket::all();
+        $paketData = $paket::with(['paket_detail' => function ($query) use ($id) {
+            $query->where('paket_id', $id);
+        }, 'paket_detail.paketable'])->findOrFail($id);
+        // $paketData = $paket->paket_detail;
+        // $paketData = Materi::with('paket')
+        $paketData->paket_detail = $paketData->paket_detail->sortBy(function ($detail) {
+            return $detail->created_at;
+        });
+
+        return view('admin.paket.edit-paket', ['categories' => $categories, 'paketData' => $paketData, 'materi' => $materi, 'soal' => $soal]);
     }
 
     /**
@@ -145,14 +157,98 @@ class ManajemenPaketController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // if ($request->file('thumbnail')) {
+        //     # code...
+        // }
+        try {
+            //code...
+
+            $thumbnail = $request->file('thumbnail');
+
+            if ($thumbnail != null) {
+                $thumbnail->move(public_path('assets/img'), $thumbnail->getClientOriginalName());
+            }
+
+            Paket::where('id', $id)->update([
+                "name" => $request->name,
+                "thumbnail" => $thumbnail != null ? $thumbnail->getClientOriginalName() : $request->hidThumbnail,
+                "kategori_id" => $request->category,
+                "description" => $request->description,
+                "status" => $request->status,
+                "day_active_paket" => (int) $request->active,
+                "paket_type" => $request->tipe,
+                "price" => (float) $request->price,
+                "discount" => (float) $request->discount,
+            ]);
+            // try {
+            $paketDetail =  [];
+            $materis = $request->materi;
+            $soals = $request->soal;
+            $detailIdMateri = $request->detailMateri;
+            $detailIdSoal = $request->detailSoal;
+            $index = 0;
+            foreach ($materis as $materi) {
+                array_push($paketDetail, [
+                    "id" => $detailIdMateri[$index++] ?? Str::uuid()->toString(),
+                    "paket_id" => $id,
+                    "paketable_id" => $materi,
+                    "paketable_type" => Materi::class,
+                ]);
+            }
+            $index = 0;
+            foreach ($soals as $soal) {
+                array_push($paketDetail, [
+                    "id" => $detailIdSoal[$index++] ?? Str::uuid()->toString(),
+                    "paket_id" => $id,
+                    "paketable_id" => $soal,
+                    "paketable_type" => Soal::class,
+                ]);
+            }
+
+            $detail = PaketDetail::upsert(
+                $paketDetail,
+                ['id'],
+                ['paketable_id'],
+
+            );
+            // dd($paketDetail, $detail);
+            // dd($request->detailMateri, $request->detailSoal);
+            // } catch (\Throwable $th) {
+            //     // dd($th); 
+            //     throw new Exception($th, 1);
+
+            // }
+            // dd($request);
+            return redirect()->back()->with('success', 'Berhasil memperbarui data paket');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('failed', $th->getMessage());
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Paket $paket)
     {
-        //
+        try {
+            Storage::delete(public_path('assets/img' . $paket->thumbnail));
+            $paket->delete();
+
+            return redirect()->route('paket.index')->with('success', 'Berhasil menghapus paket ' . $paket->name);
+        } catch (\Throwable $th) {
+            return redirect()->route('paket.index')->with('failed', 'Gagal menghapus paket ' . $paket->name);
+        }
+    }
+
+    public function deleteMaterial($id)
+    {
+        $detail = PaketDetail::findOrFail($id);
+        $tabel = $detail->paketable_type == Materi::class ? 'materi' : 'soal';
+        try {
+            $detail->delete();
+            return redirect()->back()->with("success", "Berhasil menghapus " . "$tabel " . $detail->paketable->name);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with("failed", "Berhasil menghapus " . "$tabel " . $detail->paketable->name);
+        }
     }
 }

@@ -6,9 +6,9 @@
 <main class="pt-16 h-[100vh] md:ml-64">
 
     <section class="p-2 bg-gray-50 dark:bg-gray-900 sm:p-5 ">
-        <div class="max-w-screen-xl px-4 mx-auto lg:px-12">
+        <div class="max-w-screen-4xl px-4 mx-auto lg:px-12">
 
-            <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+            <div class="py-8 px-4 mx-auto max-w-4xl lg:py-16">
                 <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Add a new paket</h2>
                 <form id="add" action="{{route('paket.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf

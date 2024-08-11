@@ -23,6 +23,7 @@ Route::resource('admin/paket', ManajemenPaketController::class)
         'update' => 'paket.update',
         'destroy' => 'paket.destroy',
     ]);
+Route::delete('admin/paket/materi/{id}', [ManajemenPaketController::class, 'deleteMaterial'])->name('paket.material.delete');
 Route::resource('admin/materi', ManajemenMateriController::class);
 Route::resource('admin/transaksi', ManajemenTransaksiController::class);
 Route::resource('admin/konfigurasi', ManajemenKonfigurasiController::class);
