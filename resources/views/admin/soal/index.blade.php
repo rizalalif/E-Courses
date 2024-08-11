@@ -83,34 +83,7 @@
                                                 class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Apple
                                                 (56)</label>
                                         </li>
-                                        <li class="flex items-center">
-                                            <input id="fitbit" type="checkbox" value=""
-                                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                            <label for="fitbit"
-                                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Microsoft
-                                                (16)</label>
-                                        </li>
-                                        <li class="flex items-center">
-                                            <input id="razor" type="checkbox" value=""
-                                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                            <label for="razor"
-                                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Razor
-                                                (49)</label>
-                                        </li>
-                                        <li class="flex items-center">
-                                            <input id="nikon" type="checkbox" value=""
-                                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                            <label for="nikon"
-                                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Nikon
-                                                (12)</label>
-                                        </li>
-                                        <li class="flex items-center">
-                                            <input id="benq" type="checkbox" value=""
-                                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                            <label for="benq"
-                                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">BenQ
-                                                (74)</label>
-                                        </li>
+
                                     </ul>
                                 </div>
                             </div>
@@ -165,12 +138,11 @@
                                                     </li>
                                                 </ul>
                                                 <div class="py-1">
-                                                    <form action="{{ route('soal.destroy', $item->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit"
-                                                            class="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</button>
-                                                    </form>
+                                                    <button id="deleteSoalBtn" value="{{ $item->id }}"
+                                                        type="button"
+                                                        class="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white "
+                                                        data-modal-target="deleteModal"
+                                                        data-modal-toggle="deleteModal">Delete</button>
                                                 </div>
                                             </div>
                                         </td>
@@ -240,4 +212,62 @@
             </div>
         </section>
     </main>
+
+    <!-- delete modal -->
+    <x-modal id="deleteModal" modalType="normal" type="delete" message="Apakah Anda yakin ingin menghapus soal ini?" />
+
+    <div id="deleteModal" tabindex="-1" aria-hidden="true"
+        class="fixed top-0 left-0 right-0 z-50 items-center justify-center hidden w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+        <div class="relative w-full h-full max-w-md p-4 md:h-auto">
+            <!-- Modal content -->
+            <div class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+                <button type="button"
+                    class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-toggle="deleteModal">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto" aria-hidden="true"
+                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                <p class="mb-4 text-gray-500 dark:text-gray-300">Apakah anda yakin menghapus soal?</p>
+                <div class="flex items-center justify-center space-x-4">
+                    <button data-modal-toggle="deleteModal" type="button"
+                        class="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">
+                        No
+                    </button>
+                    <form id="deleteForm" action="" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"
+                            class="px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
+                            Yes
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', '#deleteSoalBtn', function(e) {
+                e.preventDefault();
+                var id = $(this).val();
+                var actionUrl = "{{ route('soal.destroy', ':id') }}";
+                actionUrl = actionUrl.replace(':id', id);
+                $('#deleteForm').attr('action', actionUrl);
+            });
+        });
+    </script>
+
 @endsection

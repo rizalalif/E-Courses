@@ -28,37 +28,6 @@ class DetailSoalController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'input.*name' => 'required',
-        ]);
-        // dd($request->all());
-        $soal = [
-            'name' => $request->nama,
-            'waktu_pengerjaan' => $request->waktu_pengerjaan,
-            'jumlah_soal' => $request->jumlah_soal,
-            'status' => $request->status,
-            'description' => $request->description
-        ];
-
-        $soal = Soal::create($soal);
-        foreach ($request->input as $key => $value) {
-            $detailSoal = [
-                'soal_id' => $soal->id, // Asosiasi dengan tabel soal
-                'soal' => $value['soal'],
-                'kunci_jawaban' => $value['kunci_jawaban'],
-                'jawaban_a' => $value['jawaban_a'],
-                'jawaban_b' => $value['jawaban_b'],
-                'jawaban_c' => $value['jawaban_c'],
-                'jawaban_d' => $value['jawaban_d'],
-                'jawaban_e' => $value['jawaban_e'], // Opsi jawaban E, jika ada
-                'pembahasan' => $value['pembahasan'],
-            ];
-
-            SoalDetail::create($detailSoal); // Simpan ke database
-        }
-    }
 
     /**
      * Display the specified resource.
@@ -84,9 +53,16 @@ class DetailSoalController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SoalDetail $SoalDetail)
+    public function destroy(string $id)
     {
-        //
+        $soal = SoalDetail::findOrFail($id);
+        $soal_id = $soal->soal_id;
+        try {
+            $soal->delete();
+            return redirect()->route('soal.edit', $soal_id)->with('success', 'Soal berhasil di hapus');
+        } catch (\Exception $e) {
+            return redirect()->route('soal.edit', $soal_id)->with('error', 'Soal gagal di hapus');
+        }
     }
     public function show($id)
     {

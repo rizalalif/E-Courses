@@ -4,7 +4,7 @@
     <main class="pt-14 h-[100vh] md:ml-64">
         <section class="p-3 bg-gray-50 dark:bg-gray-900 sm:p-5">
             <p class="my-2 text-gray-900 dark:text-white"><a href="{{ route('soal.index') }}">Soal</a> / Create</p>
-            <form action="{{ route('detailsoal.store') }}" method="POST" class="col-span-2">
+            <form action="{{ route('soal.store') }}" method="POST" class="col-span-2">
                 @csrf
                 <input type="hidden" name="status" id="status" value="">
                 <input type="hidden" name="jumlah_soal" id="jumlah_soal" value="1">
@@ -17,6 +17,9 @@
                             <input type="text" name="nama" id="nama"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Nama Soal" required="">
+                                @error('nama')
+                                    <p>{{ $message }}</p>
+                                @enderror
                         </div>
                         <div>
                             <label for="waktu" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Waktu
@@ -48,31 +51,33 @@
                                         </svg>
                                     </button>
                                 </h2>
-                                <div id="accordion-open-body-0" class="hidden" aria-labelledby="accordion-open-heading-0">
+                                <div id="accordion-open-body" class="" aria-labelledby="accordion-open-heading-0">
                                     {{-- Soal --}}
                                     <div id="soal-container"
                                         class="p-5 border border-b-0 border-gray-200 dark:border-gray-600 dark:bg-gray-700">
                                         <div id="soal-0" class="mb-4">
                                             <textarea id="soal_1" rows="4" placeholder="Tulis soal disini" name="input[1][soal]"
-                                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
+                                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                required></textarea>
                                             <div class="mt-2 text-sm font-medium text-gray-900 dark:text-white">Jawaban
                                             </div>
                                             <div class="">
                                                 @foreach (['a', 'b', 'c', 'd', 'e'] as $option)
                                                     <div class="flex items-center py-2 space-x-2">
                                                         <input type="radio" name="input[1][kunci_jawaban]"
-                                                            value="{{ $option }}" class="form-radio ">
+                                                            value="{{ $option }}" class="form-radio " required>
                                                         <input type="text" id="jawaban_{{ $option }}_0"
                                                             name="input[1][jawaban_{{ $option }}]"
                                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                            placeholder="Jawaban {{ strtoupper($option) }}">
+                                                            placeholder="Jawaban {{ strtoupper($option) }}" required>
                                                     </div>
                                                 @endforeach
                                             </div>
                                             <div class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Penjelasan
                                             </div>
                                             <textarea id="penjelasan_0" rows="4" name="input[1][pembahasan]"
-                                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
+                                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                required></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -149,20 +154,22 @@
                     class="p-5 border border-b-0 border-gray-200 dark:border-gray-600 dark:bg-gray-700">
                     <div id="" class="mb-4">
                         <textarea id="soal_${i}" rows="4" placeholder="Tulis soal disini" name="input[${i}][soal]"
-                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
+                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            required></textarea>
                         <div class="mt-2 text-sm font-medium text-gray-900 dark:text-white">Jawaban</div>
                         <div>
                             ${['a', 'b', 'c', 'd', 'e'].map(option => `
-                                                                                                                                                <div class="flex items-center py-2 space-x-2">
-                                                                                                                                                    <input type="radio" name="input[${i}][kunci_jawaban]" value="${option}" class="form-radio">
-                                                                                                                                                    <input type="text" id="jawaban_${option}_${i}" name="input[${i}][jawaban_${option}]"
-                                                                                                                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                                                                                                                        placeholder="Jawaban ${option.toUpperCase()}">
-                                                                                                                                                </div>`).join('')}
+                                                                                                                                                        <div class="flex items-center py-2 space-x-2">
+                                                                                                                                                            <input type="radio" name="input[${i}][kunci_jawaban]" value="${option}" class="form-radio" required>
+                                                                                                                                                            <input type="text" id="jawaban_${option}_${i}" name="input[${i}][jawaban_${option}]"
+                                                                                                                                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                                                                                                                placeholder="Jawaban ${option.toUpperCase()}" required>
+                                                                                                                                                        </div>`).join('')}
                         </div>
                         <div class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Penjelasan</div>
                         <textarea id="penjelasan_${i}" rows="4" name="input[${i}][pembahasan]"
-                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"></textarea>
+                            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            required></textarea>
                     </div>
                 </div>
             </div>

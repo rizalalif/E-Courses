@@ -9,4 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class SoalDetail extends Model
 {
     use HasFactory,HasUuids;
+
+    protected $guarded = ['id'];
 }

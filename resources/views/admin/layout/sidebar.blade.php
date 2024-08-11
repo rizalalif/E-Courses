@@ -6,7 +6,7 @@
         <ul class="space-y-2">
             <li>
                 <a href="{{ route('soal.index') }}"
-                    class="{{ request()->is('admin/soal') ? 'bg-gray-100 dark:bg-gray-700' : '' }} flex items-center p-2 text-base font-medium text-gray-900 rounded-lg  dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    class="{{ request()->is('admin/soal/*', 'admin/soal') ? 'bg-gray-100 dark:bg-gray-700' : '' }} flex items-center p-2 text-base font-medium text-gray-900 rounded-lg  dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg aria-hidden="true"
                         class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white {{ request()->is('admin/soal') ? 'text-gray-900 dark:text-white' : '' }}"
                         fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -21,7 +21,7 @@
             </li>
             <li>
                 <a href="{{ route('paket.index') }}"
-                    class="flex {{ request()->is('admin/paket') ? 'bg-gray-100 dark:bg-gray-700' : '' }} items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    class="flex {{ request()->is('admin/paket', 'admin/paket/*') ? 'bg-gray-100 dark:bg-gray-700' : '' }} items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg class="w-[24px] h-[24px] text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white {{ request()->is('admin/paket') ? 'text-gray-900 dark:text-white' : '' }}"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         fill="currentColor" viewBox="0 0 24 24">
@@ -37,7 +37,7 @@
             </li>
             <li>
                 <a href="{{ route('materi.index') }}"
-                    class="flex {{ request()->is('admin/materi') ? 'bg-gray-100 dark:bg-gray-700' : '' }} items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    class="flex {{ request()->is('admin/materi', 'admin/materi/*') ? 'bg-gray-100 dark:bg-gray-700' : '' }} items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg aria-hidden="true"
                         class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white {{ request()->is('admin/materi') ? 'text-gray-900 dark:text-white' : '' }}"
                         fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -50,7 +50,7 @@
             </li>
             <li>
                 <a href="{{ route('transaksi.index') }}"
-                    class="flex {{ request()->is('admin/transaksi') ? 'bg-gray-100 dark:bg-gray-700' : '' }} items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    class="flex {{ request()->is('admin/transaksi', 'admin/transaksi/*') ? 'bg-gray-100 dark:bg-gray-700' : '' }} items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg class="w-[24px] h-[24px] text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white {{ request()->is('admin/transaksi') ? 'text-gray-900 dark:text-white' : '' }}"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         fill="currentColor" viewBox="0 0 24 24">
@@ -63,7 +63,7 @@
             </li>
             <li>
                 <a href="{{ route('konfigurasi.index') }}"
-                    class="flex {{ request()->is('admin/konfigurasi') ? 'bg-gray-100 dark:bg-gray-700' : '' }} items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    class="flex {{ request()->is('admin/konfigurasi', 'admin/konfigurasi/*') ? 'bg-gray-100 dark:bg-gray-700' : '' }} items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg class="w-[24px] h-[24px] text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white {{ request()->is('admin/konfigurasi') ? 'text-gray-900 dark:text-white' : '' }}"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         fill="currentColor" viewBox="0 0 24 24">
