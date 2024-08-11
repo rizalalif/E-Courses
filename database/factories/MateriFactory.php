@@ -17,7 +17,7 @@ class MateriFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->text(),
+            'name' => $this->faker->name(),
             'status' => $this->faker->randomElement(['finish', 'draft']),
             'description' => $this->faker->text(100),
             'created_at' => now(),

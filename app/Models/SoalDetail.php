@@ -11,4 +11,10 @@ class SoalDetail extends Model
     use HasFactory,HasUuids;
 
     protected $guarded = ['id'];
+    use HasFactory;
+
+    public function soal()
+    {
+        return $this->belongsTo(Soal::class);
+    }
 }

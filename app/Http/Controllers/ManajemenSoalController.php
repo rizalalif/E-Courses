@@ -14,7 +14,11 @@ class ManajemenSoalController extends Controller
         $soal = Soal::all();
         $paket = Paket::select('id', 'name')->get();
         return view('admin.soal.index', compact('soal', "paket"));
+        $soal = Soal::all();
+        $paket = Paket::select('id', 'name')->get();
+        return view('admin.soal.index', compact('soal', "paket"));
     }
+
     public function show(string $id)
     {
         $soal = Soal::with('detailSoals')->findOrFail($id);
@@ -60,7 +64,7 @@ class ManajemenSoalController extends Controller
             }
             $soal = Soal::all();
             $paket = Paket::select('id', 'name')->get();
-            return view('admin.soal.index', compact('soal', "paket"));
+            return redirect()->route('soal.index')->with('success', 'Soal berhasil disimpan');
         } catch (\Exception $e) {
             return redirect()->route('soal.create')->with('error', 'Terjadi kesalahan saat membuat soal');
         }

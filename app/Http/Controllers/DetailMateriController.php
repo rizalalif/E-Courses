@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Materi;
+use App\Models\Soal;
 use Illuminate\Http\Request;
 
 class DetailMateriController extends Controller
