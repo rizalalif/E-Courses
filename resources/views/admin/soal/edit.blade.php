@@ -6,7 +6,7 @@
             <form action="{{ route('soal.update', $soal->id) }}" method="POST">
                 @csrf
                 @method('PUT')
-                <p class="my-2 text-gray-900 dark:text-white"><a href="{{ route('soal.index') }}">Soal</a> / Create</p>
+                <p class="my-2 text-gray-900 dark:text-white"><a href="{{ route('soal.index') }}">Soal</a> / Edit</p>
                 <div class="max-w-full px-4 py-4 mx-auto rounded-md lg:py-5 dark:bg-gray-800">
                     <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Tambah Soal</h2>
                     <div class="grid gap-4 mb-4 sm:grid-cols-2">
@@ -186,12 +186,12 @@
                     <div class="mt-2 text-sm font-medium text-gray-900 dark:text-white">Jawaban</div>
                     <div>
                         ${['a', 'b', 'c', 'd', 'e'].map(option => `
-                                                                                                                                                                                                                                                <div class="flex items-center py-2 space-x-2">
-                                                                                                                                                                                                                                                    <input type="radio" name="input[${i}][kunci_jawaban]" value="${option}" class="form-radio" required>
-                                                                                                                                                                                                                                                    <input type="text" id="jawaban_${option}_${i}" name="input[${i}][jawaban_${option}]"
-                                                                                                                                                                                                                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                                                                                                                                                                                                                        placeholder="Jawaban ${option.toUpperCase()}" required>
-                                                                                                                                                                                                                                                </div>`).join('')}
+                                                                                                                                                                                                                                                    <div class="flex items-center py-2 space-x-2">
+                                                                                                                                                                                                                                                        <input type="radio" name="input[${i}][kunci_jawaban]" value="${option}" class="form-radio" required>
+                                                                                                                                                                                                                                                        <input type="text" id="jawaban_${option}_${i}" name="input[${i}][jawaban_${option}]"
+                                                                                                                                                                                                                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                                                                                                                                                                                                            placeholder="Jawaban ${option.toUpperCase()}" required>
+                                                                                                                                                                                                                                                    </div>`).join('')}
                     </div>
                     <div class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Penjelasan</div>
                     <textarea id="penjelasan_${i}" rows="4" name="input[${i}][pembahasan]"
