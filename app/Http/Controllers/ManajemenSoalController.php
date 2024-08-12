@@ -113,7 +113,7 @@ class ManajemenSoalController extends Controller
 
                 SoalDetail::updateOrCreate(['id' => $id], $detailSoal); // Simpan ke database'
             }
-            return redirect()->back()->with('error', 'Item berhasil di ubah.');
+            return redirect()->back()->with('success', 'Item berhasil di ubah.');
         } catch (\Exception $e) {
             return redirect()->route('soal.index')->with('error', 'Terjadi kesalahan saat mengubah soal');
         }
