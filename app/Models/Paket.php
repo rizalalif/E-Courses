@@ -13,7 +13,7 @@ class Paket extends Model
     use HasUuids;
     use HasFactory;
 
-    protected $with = 'category';
+    protected $with = ['category', 'paket_detail'];
     protected $fillable = [
         'thumbnail',
         'kategori_id',
@@ -34,8 +34,6 @@ class Paket extends Model
 
     public function paket_detail()
     {
-        return $this->hasOne(PaketDetail::class);
+        return $this->hasMany(PaketDetail::class);
     }
-
-
 }

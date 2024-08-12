@@ -15,6 +15,7 @@ class KategoriPaket extends Model
         'name',
         'description'
     ];
+    
 
     public function pakets(): HasMany
     {

@@ -15,7 +15,7 @@ class PaketDetail extends Model
 
     public function paket()
     {
-        return $this->belongsTo(Paket::class);
+        return $this->belongsTo(Paket::class,'paket_id','id');
     }
 
     public function paketable(): MorphTo
