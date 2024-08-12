@@ -106,7 +106,7 @@ class ManajemenPaketController extends Controller
             PaketDetail::insert($paketDetail);
             return redirect()->route('paket.index')->with('success', 'Berhasil menambahkan paket!');
         } catch (\Throwable $th) {
-            return redirect()->route('paket.index')->with('failed', $th->getMessage());
+            return redirect()->route('paket.index')->with('error', $th->getMessage());
         }
 
 
@@ -211,17 +211,9 @@ class ManajemenPaketController extends Controller
                 ['paketable_id'],
 
             );
-            // dd($paketDetail, $detail);
-            // dd($request->detailMateri, $request->detailSoal);
-            // } catch (\Throwable $th) {
-            //     // dd($th); 
-            //     throw new Exception($th, 1);
-
-            // }
-            // dd($request);
             return redirect()->back()->with('success', 'Berhasil memperbarui data paket');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('failed', $th->getMessage());
+            return redirect()->back()->with('error', $th->getMessage());
         }
     }
 
@@ -236,7 +228,7 @@ class ManajemenPaketController extends Controller
 
             return redirect()->route('paket.index')->with('success', 'Berhasil menghapus paket ' . $paket->name);
         } catch (\Throwable $th) {
-            return redirect()->route('paket.index')->with('failed', 'Gagal menghapus paket ' . $paket->name);
+            return redirect()->route('paket.index')->with('error', 'Gagal menghapus paket ' . $paket->name);
         }
     }
 
@@ -248,7 +240,7 @@ class ManajemenPaketController extends Controller
             $detail->delete();
             return redirect()->back()->with("success", "Berhasil menghapus " . "$tabel " . $detail->paketable->name);
         } catch (\Throwable $th) {
-            return redirect()->back()->with("failed", "Berhasil menghapus " . "$tabel " . $detail->paketable->name);
+            return redirect()->back()->with("error", "Berhasil menghapus " . "$tabel " . $detail->paketable->name);
         }
     }
 }
