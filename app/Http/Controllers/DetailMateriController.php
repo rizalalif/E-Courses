@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Materi;
+use App\Models\Soal;
 use Illuminate\Http\Request;
 
 class DetailMateriController extends Controller
@@ -26,9 +26,11 @@ class DetailMateriController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Soal $soal)
     {
-        //
+        $soal = Soal::findorFail($soal);
+        dd($soal);
+        dd($request->all());
     }
 
     /**

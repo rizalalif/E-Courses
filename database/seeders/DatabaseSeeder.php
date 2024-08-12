@@ -4,9 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\KategoriPaket;
 use App\Models\Materi;
+use App\Models\MateriDetail;
 use App\Models\Paket;
-use App\Models\PaketDetail;
-use App\Models\Soal;
 use App\Models\User;
 use Database\Factories\KategoriFactory;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -25,10 +24,13 @@ class DatabaseSeeder extends Seeder
         $this->call(
             [
                 KategoriPaketSeeder::class,
-                // PaketSeeder::class,
-                // PaketDetailSeeder::class,
+                PaketSeeder::class,
                 MateriSeeder::class,
-                SoalSeeder::class
+                SoalSeeder::class,
+                SoalDetailSeeder::class,
+                MateriDetailSeeder::class,
+            
+
             ]
         );
     }

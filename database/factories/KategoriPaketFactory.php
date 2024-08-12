@@ -16,6 +16,7 @@ class KategoriPaketFactory extends Factory
      */
     public function definition(): array
     {
+        static $index = 1;
         $categories = [
             '1' => 'kategori 1',
             '2' => 'kategori 2',
@@ -25,8 +26,7 @@ class KategoriPaketFactory extends Factory
 
         ];
         return [
-            "name" => collect($categories)->random(),
-            "description" => fake()->sentence(20),
-        ];
+            'name' => 'Kategori ' . $index++,
+            'description' => 'Deskripsi ' . $index       ];
     }
 }
