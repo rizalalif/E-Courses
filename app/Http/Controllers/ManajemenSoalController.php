@@ -14,9 +14,6 @@ class ManajemenSoalController extends Controller
         $soal = Soal::all();
         $paket = Paket::select('id', 'name')->get();
         return view('admin.soal.index', compact('soal', "paket"));
-        $soal = Soal::all();
-        $paket = Paket::select('id', 'name')->get();
-        return view('admin.soal.index', compact('soal', "paket"));
     }
 
     public function show(string $id)

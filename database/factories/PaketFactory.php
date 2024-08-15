@@ -19,8 +19,6 @@ class PaketFactory extends Factory
     {
         $categories = KategoriPaket::all();
         return [
-            "thumbnail" => 'up.png',
-            "kategori_id" => $categories->random()->id,
             "name" => fake()->word(),
             "description" => fake()->sentence(20),
             "status" => 'active',
