@@ -6,7 +6,6 @@
             <p class="my-2 text-gray-900 dark:text-white"><a href="{{ route('soal.index') }}">Soal</a> / Create</p>
             <form action="{{ route('soal.store') }}" method="POST" class="col-span-2">
                 @csrf
-                <input type="hidden" name="status" id="status" value="">
                 <input type="hidden" name="jumlah_soal" id="jumlah_soal" value="1">
                 <div class="max-w-full px-4 py-4 mx-auto rounded-md lg:py-5 dark:bg-gray-800">
                     <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Tambah Soal Baru</h2>
@@ -96,7 +95,7 @@
                             </button>
                         </div>
                         <div class="grid grid-cols-2 gap-4 sm:col-span-2 ">
-                            <button type="submit" onclick="submitForm('draft')"
+                            <button type="submit" id="draft-button" onclick=""
                                 class=" text-white inline-flex justify-center items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 w-full">
                                 <svg class="w-6 h-6 mr-1 -ml-1" fill="currentColor" viewBox="0 0 20 20"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -106,7 +105,7 @@
                                 </svg>
                                 Draft
                             </button>
-                            <button type="submit" onclick="submitForm('finish')"
+                            <button type="submit" id="finish-button" onclick=""
                                 class="text-white inline-flex justify-center items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 w-full">
                                 <svg class="w-6 h-6 mr-1 -ml-1" fill="currentColor" viewBox="0 0 20 20"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -116,6 +115,8 @@
                                 </svg>
                                 Finish
                             </button>
+
+                            <input type="hidden" name="status" id="status" value="">
                         </div>
                     </div>
                 </div>
@@ -157,12 +158,12 @@
                         <div class="mt-2 text-sm font-medium text-gray-900 dark:text-white">Jawaban</div>
                         <div>
                             ${['a', 'b', 'c', 'd', 'e'].map(option => `
-                                                                                                                                                            <div class="flex items-center py-2 space-x-2">
-                                                                                                                                                                <input type="radio" name="input[${i}][kunci_jawaban]" value="${option}" class="form-radio" required>
-                                                                                                                                                                <input type="text" id="jawaban_${option}_${i}" name="input[${i}][jawaban_${option}]"
-                                                                                                                                                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                                                                                                                                    placeholder="Jawaban ${option.toUpperCase()}" required>
-                                                                                                                                                            </div>`).join('')}
+                                                                                                                                                                                <div class="flex items-center py-2 space-x-2">
+                                                                                                                                                                                    <input type="radio" name="input[${i}][kunci_jawaban]" value="${option}" class="form-radio" required>
+                                                                                                                                                                                    <input type="text" id="jawaban_${option}_${i}" name="input[${i}][jawaban_${option}]"
+                                                                                                                                                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                                                                                                                                                        placeholder="Jawaban ${option.toUpperCase()}" required>
+                                                                                                                                                                                </div>`).join('')}
                         </div>
                         <div class="mb-2 text-sm font-medium text-gray-900 dark:text-white">Penjelasan</div>
                         <textarea id="penjelasan_${i}" rows="4" name="input[${i}][pembahasan]"
@@ -180,9 +181,14 @@
     </script>
 
     <script>
-        function submitForm(status) {
-            document.getElementById('status').value = status;
-            document.forms[0].submit(); // Submit the form
-        }
+        document.getElementById('draft-button').addEventListener('click', function() {
+            document.getElementById('status').value = 'draft';
+            document.getElementById('status-form').submit();
+        });
+
+        document.getElementById('finish-button').addEventListener('click', function() {
+            document.getElementById('status').value = 'finish';
+            document.getElementById('status-form').submit();
+        });
     </script>
 @endsection

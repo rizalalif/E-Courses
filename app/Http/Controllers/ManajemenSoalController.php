@@ -33,10 +33,12 @@ class ManajemenSoalController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'input.*name' => 'required',
+        ]);
+
+        // dd($request);
         try {
-            $request->validate([
-                'input.*name' => 'required',
-            ]);
 
             $soal = [
                 'name' => $request->nama,

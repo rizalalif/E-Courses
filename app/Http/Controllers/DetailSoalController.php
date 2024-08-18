@@ -73,6 +73,6 @@ class DetailSoalController extends Controller
         // dd($id);
         $soal = Soal::findOrFail($id);
         dd($soal);
-        return view('admin.soal.show');
+        // return view('admin.soal.show');
     }
 }
