@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Materi;
+use App\Models\PaketUser;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class ManajemenMateriController extends Controller
+class PaketUserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.materi.index');
+        $data = PaketUser::with('user')->where('user_id', '9cc829d1-6f04-4c79-b9b8-a1159f5c00ef')->get();
+        return view('user.my-paket', compact('data'));
     }
 
     /**
@@ -36,9 +38,7 @@ class ManajemenMateriController extends Controller
      */
     public function show(string $id)
     {
-        $materi = Materi::findOrFail($id);
-        
-        dd($materi);
+        //
     }
 
     /**

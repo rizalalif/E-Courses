@@ -28,80 +28,100 @@
                         <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                             <div class="sm:col-span-2">
                                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Paket Name</label>
-                                <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type paket name" required="">
+                                <input type="text" name="name" value="{{ old('name') }}" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type paket name" required="">
                             </div>
                             <div class="sm:col-span-2">
                                 <label for="kategori" class="block my-2 text-sm font-medsoaium text-gray-900 dark:text-white">Kategori</label>
-                                <select id="kategori" name="kategori" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                <select id="kategori" name="kategori" value="{{old('kategori')}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                     <option selected="">Select Kategori</option>
                                     @foreach ($kategori as $cat )
-                                    <option value="{{$cat->id}}">{{$cat->name}} - {{$cat->id}}</option>
+                                    <option value="{{$cat->id}}" {{ old('kategori') == $cat->id ? 'selected' : '' }}>{{$cat->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="sm:col-span-2">
+                                <label for="day_active" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Day Active</label>
+                                <input type="number" name="day_active" value="{{old('day_active')}}" id="day_active" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type day active paket" required="">
+                            </div>
                             <div class="w-full">
-                                <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Discount</label>
-                                <input type="number" name="diskon" id="discount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="100%" required="">
+                                <label for="discount" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Discount</label>
+                                <input type="number" name="diskon" id="discount" value="{{old('diskon')}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="100%" required="">
                             </div>
                             <div class="w-full">
                                 <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-                                <input type="number" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="$2999" required="">
+                                <input type="number" name="price" id="price" value="{{old('price')}}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="$2999" required="">
                             </div>
-
-                            <div class="relative max-w-sm">
-                                <!-- <label for="datepicker-format" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Materi</label> -->
-
-                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                    </svg>
-                                </div>
-                                <input id="datepicker-format" datepicker datepicker-min-date="06/04/2024" datepicker-max-date="05/05/2025" type="text" name="start" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Start Date">
-                            </div>
-                            <div class="relative max-w-sm">
-                                <!-- <label for="datepicker-format" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Materi</label> -->
-
-                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                    </svg>
-                                </div>
-                                <input id="datepicker-format2" datepicker datepicker-min-date="06/04/2024" type="text" name="end" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="End Date">
-                            </div>
-
                         </div>
                     </div>
                     <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                         <div class="sm:col-span-2">
                             <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                            <textarea id="description" name="description" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Your description here"></textarea>
+                            <textarea id="description" name="description" rows="8" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Your description here">{{old('description')}}</textarea>
                         </div>
                         <div class="flex flex-row gap-4 sm:col-span-2">
                             <!-- <div class="flex flex-col gap-4"> -->
                             <div id="container-materi" class="basis-4/6 space-y-2">
                                 <label for="materi" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Materi</label>
-                                <div id="dropdown-materi" class="flex flex-col gap-2">
-                                    <select id="materi" name="materi[]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+
+                                @php
+                                $oldMateris = old('materi', []); // Get the old 'materi' input as an array
+                                @endphp
+                                @if(count($oldMateris) > 0)
+                                @foreach ($oldMateris as $oldMateri )
+
+                                <div id="dropdown-materi-{{$oldMateri}}" class="flex flex-col gap-2">
+                                    <select id="materi-{{$oldMateri}}" name="materi[]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                         <option disabled selected="">Select Materi</option>
                                         @foreach ($materis as $materi )
-                                        <option value="{{$materi->id}}">{{$materi->name}} - {{$materi->id}}</option>
+                                        <option value="{{$materi->id}}" {{ $oldMateri == $materi->id ? 'selected' : '' }}>{{$materi->name}}</option>
                                         @endforeach
 
                                     </select>
                                 </div>
+                                @endforeach
+                                @else
+                                <!-- Render default dropdown if no old values exist -->
+                                <div id="dropdown-materi" class="flex flex-col gap-2">
+                                    <select id="materi" name="materi[]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                        <option disabled selected>Select Materi</option>
+                                        @foreach ($materis as $materi)
+                                        <option value="{{$materi->id}}">{{$materi->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @endif
 
                             </div>
                             <div id="container-soal" class="basis-4/6 space-y-2">
                                 <label for="soal" class="block mb-2 text-sm font-medsoaium text-gray-900 dark:text-white">Soal</label>
-                                <div id="dropdown-soal" class="flex flex-col gap-2">
-                                    <select id="soal" name="soal[]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                @php
+                                $oldSoals = old('soal', []); // Get the old 'materi' input as an array
+                                @endphp
+                                @if(count($oldSoals) > 0)
+                                @foreach ($oldSoals as $oldSoal )
+
+                                <div id="dropdown-soal-{{$oldSoal}}" class="flex flex-col gap-2">
+                                    <select id="soal-{{$oldSoal}}" name="soal[]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                         <option disabled selected="">Select Soal</option>
                                         @foreach ($soals as $soal )
-                                        <option value="{{$soal->id}}">{{$soal->name}} - {{$soal->id}}</option>
+                                        <option value="{{$soal->id}}" {{ $oldSoal == $soal->id ? 'selected' : '' }}>{{$soal->name}}</option>
                                         @endforeach
 
                                     </select>
                                 </div>
+                                @endforeach
+                                @else
+                                <!-- Render default dropdown if no old values exist -->
+                                <div id="dropdown-soal" class="flex flex-col gap-2">
+                                    <select id="soal" name="soal[]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                        <option disabled selected>Select Soal</option>
+                                        @foreach ($soals as $soal)
+                                        <option value="{{$soal->id}}">{{$soal->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @endif
+
                             </div>
                         </div>
 

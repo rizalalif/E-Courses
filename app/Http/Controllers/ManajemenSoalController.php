@@ -6,12 +6,13 @@ use App\Models\Paket;
 use App\Models\Soal;
 use App\Models\SoalDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ManajemenSoalController extends Controller
 {
     public function index()
     {
-        $soal = Soal::all();
+        $soal = Soal::latest()->get();
         $paket = Paket::select('id', 'name')->get();
         return view('admin.soal.index', compact('soal', "paket"));
     }
@@ -89,7 +90,7 @@ class ManajemenSoalController extends Controller
                 'name' => $request->nama,
                 'waktu_pengerjaan' => $request->waktu,
                 'jumlah_soal' => count($request->input),
-                'status' => 'finish',
+                'status' => $request->status,
                 'description' => $request->description
             ]);
 
@@ -110,7 +111,7 @@ class ManajemenSoalController extends Controller
 
                 SoalDetail::updateOrCreate(['id' => $id], $detailSoal); // Simpan ke database'
             }
-            return redirect()->back()->with('error', 'Item berhasil di ubah.');
+            return redirect()->back()->with('success', 'Item berhasil di ubah.');
         } catch (\Exception $e) {
             return redirect()->route('soal.index')->with('error', 'Terjadi kesalahan saat mengubah soal');
         }

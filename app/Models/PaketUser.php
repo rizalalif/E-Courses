@@ -11,5 +11,11 @@ class PaketUser extends Model
 {
     use HasFactory,HasUuids;
 
+    protected $guarded = ['id'];
+
+    public function user():BelongsTo{
+        return $this->belongsTo(User::class,);
+    }
+
     
 }

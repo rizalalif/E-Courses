@@ -41,7 +41,7 @@
                         </button>
                     </form>
                 @else
-                    <button type="submit" class="{{ $colors }}">
+                    <button type="submit" name="status" value="finish" class="{{ $colors }}">
                         Yes
                     </button>
                 @endif

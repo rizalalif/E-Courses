@@ -52,8 +52,7 @@ class ManajemenPaketController extends Controller
                 "description" => "required",
                 "diskon" => "required",
                 "price" => "required",
-                "start" => "required",
-                "end" => "required",
+                "day_active" => "required",
                 "materi" => "required",
                 "soal" => "required",
                 "thumbnail" => "required|image|mimes:jpeg,png,jpg|max:2048"
@@ -64,17 +63,17 @@ class ManajemenPaketController extends Controller
             // dd($image->);
             // $image->storeAs('assets/img/', $image->getClientOriginalName());
             $image->move(public_path('assets/img'), $image->getClientOriginalName());
-            $start = Carbon::parse($request->start);
-            $end = Carbon::parse($request->end);
+            // $start = Carbon::parse($request->start);
+            // $end = Carbon::parse($request->end);
 
-            $diff = $start->diffInDays($end);
+            // $diff = $start->diffInDays($end);
 
             $paket =  Paket::create([
                 "name" => $request->name,
                 "kategori_id" => $request->kategori,
                 "description" => $request->description,
                 "price" => (float) $request->price,
-                "day_active_paket" => (int) $diff,
+                "day_active_paket" => (int) $request->day_active,
                 "discount" => (float) $request->diskon,
                 "thumbnail" => $image->getClientOriginalName()
             ]);
@@ -106,7 +105,7 @@ class ManajemenPaketController extends Controller
             PaketDetail::insert($paketDetail);
             return redirect()->route('paket.index')->with('success', 'Berhasil menambahkan paket!');
         } catch (\Throwable $th) {
-            return redirect()->route('paket.index')->with('error', $th->getMessage());
+            return redirect()->back()->with('error', $th->getMessage())->withInput();
         }
 
 
@@ -241,6 +240,19 @@ class ManajemenPaketController extends Controller
             return redirect()->back()->with("success", "Berhasil menghapus " . "$tabel " . $detail->paketable->name);
         } catch (\Throwable $th) {
             return redirect()->back()->with("error", "Berhasil menghapus " . "$tabel " . $detail->paketable->name);
+        }
+    }
+
+    public function addCategory()
+    {
+        try {
+            request()->validate([
+                'category' => 'required'
+            ]);
+            KategoriPaket::create(['name' => request()->category]);
+            return redirect()->route('paket.index')->with('success', 'Berhasil menambahkan kategori!');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Gagal menambahkan kategori!')->withInput();
         }
     }
 }
