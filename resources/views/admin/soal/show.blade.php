@@ -66,7 +66,7 @@
 
                                             <!-- Radio button untuk memilih kunci jawaban (read only) -->
 
-                                            <input type="radio" readonly
+                                            <input type="radio" readonly disabled
                                                 name="input[{{ $loop->parent->iteration }}][kunci_jawaban]"
                                                 {{ $detail->kunci_jawaban == $option ? 'checked' : '' }}
                                                 value="{{ $option }}" class="w-4 h-4 ">
@@ -124,6 +124,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
     </div>

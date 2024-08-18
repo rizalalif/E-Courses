@@ -6,9 +6,16 @@ export default {
         "./resources/**/*.vue",
         "./node_modules/flowbite/**/*.js",
     ],
-    darkMode: "media",
     theme: {
         extend: {
+            fontFamily: {
+                body: ["Roboto"]
+            },
+
+            animation: {
+                "spin-slow": "spin 3s linear infinite",
+                "bounce-slow": "bounce 2s linear infinite",
+            },
             colors: {
                 primary: {
                     50: "#eff6ff",
@@ -22,6 +29,11 @@ export default {
                     800: "#1e40af",
                     900: "#1e3a8a",
                     950: "#172554",
+                },
+                greenTaskUp: {
+                    light: "#EEFBF3",
+                    DEFAULT: "#218E4B",
+                    dark: "#1B743D",
                 },
             },
         },
@@ -62,5 +74,14 @@ export default {
             ],
         },
     },
-    plugins: [],
+    plugins: [
+        require("flowbite/plugin")({
+            datatables: true,
+        }),
+    ],
+    variants: {
+        extend: {
+            backgroundColor: ["odd"],
+        },
+    },
 };

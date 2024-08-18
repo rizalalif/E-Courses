@@ -17,17 +17,18 @@
         @yield('content')
         @if ((session()->all()));
 
-            @if (session('success'))
-            <x-toast type="success" message="{{ session('success') }}" />
-            @endif
+        @if (session('success'))
+        <x-toast type="success" message="{{ session('success') }}" />
+        @endif
 
-            @if (session('error'))
-            <x-toast type="error" message="{{ session('error') }}" />
+        @if (session('error'))
+        <x-toast type="error" message="{{ session('error') }}" />
         @endif
         @endif
 
     </div>
 </body>
 
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
 
 </html>
