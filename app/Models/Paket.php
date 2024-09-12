@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Paket extends Model
@@ -13,7 +14,7 @@ class Paket extends Model
     use HasUuids;
     use HasFactory;
 
-    protected $with = ['category', 'paket_detail'];
+    // protected $with = ['category'];
     protected $fillable = [
         'thumbnail',
         'kategori_id',
@@ -35,5 +36,10 @@ class Paket extends Model
     public function paket_detail()
     {
         return $this->hasMany(PaketDetail::class);
+    }
+
+    public function transaction_detail()
+    {
+        $this->hasOne(TransactionDetail::class);
     }
 }

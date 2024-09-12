@@ -23,13 +23,15 @@ class DatabaseSeeder extends Seeder
 
         $this->call(
             [
+                UserSeeder::class,
                 KategoriPaketSeeder::class,
                 PaketSeeder::class,
+                PaketUserSeeder::class,
                 MateriSeeder::class,
                 SoalSeeder::class,
                 SoalDetailSeeder::class,
                 MateriDetailSeeder::class,
-            
+
 
             ]
         );

@@ -13,7 +13,10 @@ class PaketUserController extends Controller
      */
     public function index()
     {
-        $data = PaketUser::with('user')->where('user_id', '9cc829d1-6f04-4c79-b9b8-a1159f5c00ef')->get();
+        $user = User::first()->id;
+        $data = PaketUser::with('user')->where('user_id', $user)->get();
+
+        // dd($data);
         return view('user.my-paket', compact('data'));
     }
 

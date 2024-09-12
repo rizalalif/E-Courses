@@ -18,8 +18,11 @@ class PaketFactory extends Factory
     public function definition(): array
     {
         $categories = KategoriPaket::all();
+
+        static $i = 1;
         return [
-            "name" => fake()->word(),
+            "name" => 'Paket' . $i++,
+            "kategori_id" => $categories->random()->id,
             "description" => fake()->sentence(20),
             "status" => 'active',
             "day_active_paket" => fake()->numberBetween(1, 5),

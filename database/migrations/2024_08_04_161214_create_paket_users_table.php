@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('paket_users', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->foreignUuid('user_id')->constrained(table: 'users', indexName: 'paket_users_users_id')->onUpdate('cascade')->onDelete('cascade');
             $table->string('paket_name');
             $table->dateTime('start_time');

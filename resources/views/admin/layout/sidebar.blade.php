@@ -49,8 +49,8 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('transaksi.index') }}"
-                    class="flex {{ request()->is('admin/transaksi', 'admin/transaksi/*') ? 'bg-gray-100 dark:bg-gray-700' : '' }} items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                <a href="{{ route('transaction.index') }}"
+                    class="flex {{ request()->is('admin/transaction', 'admin/transaction/*') ? 'bg-gray-100 dark:bg-gray-700' : '' }} items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg class="w-[24px] h-[24px] text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white {{ request()->is('admin/transaksi') ? 'text-gray-900 dark:text-white' : '' }}"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         fill="currentColor" viewBox="0 0 24 24">
